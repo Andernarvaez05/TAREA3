@@ -28,7 +28,11 @@ jobs:
         run: pytest test_app.py -v
 
       - name: Ejecutar la aplicación
-        run: python app.py
+        run: |
+          python app.py &
+          sleep 4
+          curl -f http://localhost:5000/
+          kill %1
 
       - name: Construir imagen Docker
         run: docker build -t ghcr.io/andernarvaez05/ejercicio:3.0.0 .
